@@ -39,13 +39,3 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-springBoot {
-    mainClass.set("com.example.ApplicationKt")  // O'z ilovangizning asosiy sinfini ko'rsating
-}
-
-tasks {
-    bootJar {
-        archiveFileName.set("spring-render.jar")  // JAR fayl nomini belgilash
-    }
-}
-

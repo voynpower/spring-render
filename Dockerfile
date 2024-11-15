@@ -9,8 +9,7 @@ RUN apt-get install openjdk-17-jdk -y
 COPY . .
 
 # Gradle Wrapper orqali ilovani yaratish
-RUN ./gradlew bootJar --no-daemon
-
+RUN ./gradlew build --no-daemon
 # Production Stage
 FROM openjdk:17-jdk-slim
 
