@@ -8,16 +8,23 @@ RUN apt-get install openjdk-17-jdk -y
 # Loyihani nusxalash
 COPY . .
 
-# Gradle Wrapper orqali ilovani yaratish
+FROM ubuntu:latest
+
+# Install dependencies
+RUN apt-get update && apt-get install -y openjdk-17-jdk curl
+
+# Install Gradle if not using wrapper
+RUN curl -s https://get.sdkman.io | bash
+RUN bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install gradle"
+
+# Copy project files
+COPY . /app
+WORKDIR /app
+
+# Run Gradle build
 RUN ./gradlew build --no-daemon
-# Production Stage
+
+# Final image
 FROM openjdk:17-jdk-slim
-
-# 8080 portini ochish
-EXPOSE 8080
-
-# Build Stage'dan yaratilgan JAR faylini nusxalash
-COPY --from=build /build/libs/demo-1.jar app.jar
-
-# Ilovani ishga tushirish
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+COPY --from=build /app/build/libs /app/libs
+CMD ["java", "-jar", "/app/libs/your-app.jar"]
