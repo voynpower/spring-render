@@ -18,7 +18,7 @@ FROM openjdk:17-jdk-slim
 EXPOSE 8080
 
 # Build Stage'dan yaratilgan JAR faylini nusxalash
-COPY --from=build /spring-render/build/libs/spring-render-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /build/libs/spring-render-0.0.1-SNAPSHOT.jar app.jar
 
 # Ilovani ishga tushirish
 ENTRYPOINT ["java", "-jar", "/app.jar"]
